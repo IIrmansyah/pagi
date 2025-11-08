@@ -1,1 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='UTF-8'/>
+<meta content='width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=5' name='viewport'/>
+<meta content='IE=edge' http-equiv='X-UA-Compatible'/>
+
+<title>Hai Kamu! ❤️</title>
+<meta name="description" content="Pesan spesial buat kamu.">
+<meta name="keywords" content="ucapan, romantis, interaktif">
+<link rel="icon" type="image/x-icon" href="https://www.palingit.com/favicon.ico">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
+<script src="https://kit.fontawesome.com/4f3ce16e3e.js" crossorigin="anonymous"></script>
+
+<style>
+    /* OPTIMASI MOBILE PRECISION */
+    body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+        font-family: 'Josefin Sans', sans-serif;
+        color: white;
+        background: #000;
+    }
+    
+    /* Latar Belakang & Blur */
+    #bodyblur {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: #111; z-index: -1; opacity: 0.4; transition: opacity 1s ease;
+    }
+    #wallpaper {
+        width: 100%; height: 100%; object-fit: cover; transition: transform 1s ease;
+    }
+    #beneranblur {
+        position: absolute; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.4);
+    }
+
+    /* Konten Utama (Centering Mutlak di HP) */
+    #Content {
+        position: absolute; top: 50%; left: 50%;
+        transform: translate(-50%, -50%); /* Kunci Presisi HP */
+        width: 90%; max-width: 450px; text-align: center; opacity: 1;
+        transition: opacity 1s ease-in-out, margin-top 1s ease-in-out;
+        padding: 10px 0;
+    }
+    
+    /* Teks & Blockquote (Responsif Font Size) */
+    #ket { font-size: 4.5vw; font-weight: 400; margin-top: 10px; }
+    #bq { padding: 15px; background: rgba(0, 0, 0, 0.5); border-radius: 12px; }
+    #bq p {
+        font-size: 5vw; /* Font Size Responsif */
+        line-height: 1.4; margin: 10px 0; font-weight: 700;
+    }
+    @media (min-width: 600px) {
+        #bq p { font-size: 28px; }
+        #ket { font-size: 20px; }
+    }
+
+    /* Gambar (Amplop dan GIF) */
+    #suratin, #fotoakhir, #fotoakhir1 {
+        width: 140px; height: 140px; margin: 0 auto 20px auto; display: block; 
+    }
+    #Tombol { margin-top: 25px; }
+    #Tombol a {
+        display: inline-block; background: #ff5757; color: white;
+        padding: 12px 25px; border-radius: 8px; font-size: 4.5vw; 
+        font-weight: 700; text-decoration: none;
+    }
+</style>
+</head>
+<body>
+	
+       <audio src="https://feeldreams.github.io/haikamu/play/lagu.mp3" id="linkmp3"></audio>
+    <script>
+        // Inisialisasi Audio (FIX LAGU)
+        const linkmp3Element = document.getElementById('linkmp3');
+        const audio = new Audio(linkmp3Element ? linkmp3Element.src : '');
+        audio.loop = true;
+    </script>
+   
+   <div id="bodyblur">
+     <img src="https://feeldreams.github.io/haikamu/play/bg.jpg" id="wallpaper"/><div id="beneranblur"></div>
+   </div>
+
+   <div id='Content'>
+   	
+     <div id="suratin" onClick="memulai();">
+       <img src="https://rayyscoding.github.io/envelope.png"/>
+     </div>
+     <p id="ket">Klik amplopnya!</p>
+   
+     <div>
+         <img src="https://feeldreams.github.io/pandacoklat.gif" id="fotoakhir"/>
+         <img src="https://feeldreams.github.io/pandakuning.gif" id="fotoakhir1"/>
+              </div>
+     
+     <div><blockquote id='bq'>
+              <p id="kalimat">Hai Kamu! Ada pesan penting nih dari aku...</p>
+       <p id="kalimata">Aku harap kamu baca ini sampai selesai ya!</p>
+       <p id="kalimatb"></p>               <p id="kalimat2" style="opacity: 0;">Aku sayang kamu! ❤️</p>
+     </blockquote></div>
+   
+      <div id="Tombol">
+       <a id="By" onClick="multifungsi()">
+         <b id="tmbl">Lanjut</b>
+         <b id="tmbl2" style="display: none;">Balas Pesan</b>
+       </a>
+     </div>
+     
+   </div>
+
+<script>
+  // Inisialisasi SweetAlert
+  const swalst = Swal.mixin({timer: 2777, allowOutsideClick: false, showConfirmButton: false, timerProgressBar: true, imageHeight: 100,}); 
+  const swals = Swal.mixin({allowOutsideClick: false, cancelButtonColor: '#FF0040', imageWidth: 100, imageHeight: 100,}); 
+  const body = document.querySelector("body");
+  
+  // Variabel untuk animasi ketik (Biasanya diisi di script.js)
+  let fungsi = 0; // State fungsi
+  let ftganti = 0; // State gambar
+  
+  // Fungsi utama untuk memulai konten
+  function mulaikonten(){
+    fungsi = 1;
+    suratin.style = "display:none";
+    ket.style = "display:none";
+    Content.style = "opacity:1;margin-top:4vh;";
+    bodyblur.style = "opacity:.4;animation:none";
+    wallpaper.style = "transform: scale(1);";
+    bq.style = "position:relative;opacity:1;visibility:visible;margin-top:0;";
+
+     audio.play().catch(error => { console.log('Audio Play Failed:', error); }); // Memutar Audio
+    ftganti = 0;
+    // Panggilan fungsi ketik (asumsi ada di script.js atau didefinisikan secara global)
+    // setTimeout(fmulaiketik1, 300); 
+    // setTimeout(mulaiketik1, 300);
+  }
+
+  // Fungsi placeholder untuk tombol "Lanjut" (perlu disesuaikan)
+  async function multifungsi() {
+      // Logika di sini biasanya pindah ke tahap pesan berikutnya
+      await swals.fire('Lanjut!', 'Kamu akan melihat pesan berikutnya.', 'info');
+      // Contoh: Setelah klik, ganti teks pesan atau tampilkan tombol balas
+  }
+
+  // Fungsi untuk memulai interaksi (dipanggil saat klik amplop)
+  function memulai() {
+      swals.fire({
+          title: 'Hai Kamu!',
+          imageUrl: 'https://feeldreams.github.io/bunga.gif',
+          text: 'Klik OK untuk buka pesannya.',
+          confirmButtonText: 'OK',
+      }).then((result) => {
+          if (result.isConfirmed) {
+              mulaikonten();
+          }
+      });
+  }
+
+  // Fungsi Jawab/Selesai (dipertahankan dari kode sebelumnya)
+  async function menuju(){
+    Tombol.style="opacity:1;transform: scale(1);";
+    document.getElementById("tmbl").style.display = "none";
+    document.getElementById("tmbl2").style.display = "inline";
+    document.getElementById("tmbl2").innerHTML = "Selesai";
+    await swals.fire('Terima kasih!', 'Pesannya sudah selesai ya.', 'success');
+    Tombol.onclick = () => {swals.fire('Done!', 'Semoga suka, ya!', 'success');};
+  }
+</script>
+</body>
+</html>
 
